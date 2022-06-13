@@ -1,3 +1,4 @@
 *.pro.user
 .idea
+cmake-build-debug
 
