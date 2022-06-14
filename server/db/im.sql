@@ -1,17 +1,10 @@
--- Chat是个抽象类
--- User Group继承它
-CREATE TABLE chat (
-    id INTEGER PRIMARY KEY ,
-    chat_type TEXT CHECK ( chat_type IN ('User, Group'))
-);
 
 -- 用户信息
-CREATE TABLE user (
+CREATE TABLE users (
     id INTEGER PRIMARY KEY ,
     name VARCHAR(20),
     password VARCHAR(20),
     last_received_message_id INTEGER, -- 最后一次收到的message用于，查询离线消息
-    FOREIGN KEY (id) REFERENCES chat(id),
     FOREIGN KEY (last_received_message_id) REFERENCES message(id)
 );
 
@@ -21,36 +14,36 @@ CREATE TABLE user (
 CREATE TABLE friends (
     user_id INTEGER,
     friend_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (friend_id) REFERENCES user(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (friend_id) REFERENCES users(id),
     PRIMARY KEY (user_id, friend_id)
 );
 
 -- 群聊 信息
-CREATE TABLE group_chat (
+CREATE TABLE groups (
     id INTEGER PRIMARY KEY,
-    name VARCHAR(20),
-    FOREIGN KEY (id) REFERENCES chat(id)
+    name VARCHAR(20)
 );
 
 -- 群成员
 CREATE TABLE group_member (
     group_id INTEGER,
     user_id INTEGER,
-    FOREIGN KEY (group_id) REFERENCES group_chat(id),
-    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (group_id) REFERENCES groups(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (group_id, user_id)
 );
 
 -- 消息存储
-CREATE TABLE message(
-    id INTEGER PRIMARY KEY,
-    message_from INTEGER, -- 发送者
-    message_to INTEGER,   -- 接受者
-    message_type TEXT,    -- 消息类型
+CREATE TABLE message (
+    id INTEGER PRIMARY KEY AUTOINCREMENT ,
+    sender_id INTEGER, -- 发送者
+    receiver_id INTEGER,   -- 接受者
+    chart_type TEXT CHECK (chart_type in ('User', 'Group')),
+    type TEXT,    -- 消息类型
     content TEXT,         -- 内容
-    FOREIGN KEY (message_from) REFERENCES user(id),
-    FOREIGN KEY (message_to) REFERENCES  chat(id)
+    send_time TEXT,
+    received_time TEXT,
+    status TEXT CHECK ( status in  ('Received', 'UnReceived')),
+    FOREIGN KEY (sender_id) REFERENCES users(id)
 );
-
-
