@@ -5,7 +5,7 @@ CREATE TABLE chat (
     chat_type TEXT CHECK ( chat_type IN ('User, Group'))
 );
 
--- User 信息
+-- 用户信息
 CREATE TABLE user (
     id INTEGER PRIMARY KEY ,
     name VARCHAR(20),
@@ -15,7 +15,18 @@ CREATE TABLE user (
     FOREIGN KEY (last_received_message_id) REFERENCES message(id)
 );
 
--- Chat 信息
+-- 好友列表
+-- 一次插入两条
+-- 删除也是两条
+CREATE TABLE friends (
+    user_id INTEGER,
+    friend_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (friend_id) REFERENCES user(id),
+    PRIMARY KEY (user_id, friend_id)
+);
+
+-- 群聊 信息
 CREATE TABLE group_chat (
     id INTEGER PRIMARY KEY,
     name VARCHAR(20),
@@ -41,3 +52,5 @@ CREATE TABLE message(
     FOREIGN KEY (message_from) REFERENCES user(id),
     FOREIGN KEY (message_to) REFERENCES  chat(id)
 );
+
+
