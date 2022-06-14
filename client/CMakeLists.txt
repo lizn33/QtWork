@@ -13,9 +13,10 @@ find_package(Qt5 COMPONENTS
         Gui
         Widgets
         REQUIRED)
-add_executable(QtWork src/main.cpp src/mainwindow.cpp src/main)
+
+add_executable(QtWork ${SRC_FILES})
+
 target_link_libraries(QtWork
         Qt::Core
         Qt::Gui
-        Qt::Widgets
-        )
+        Qt::Widgets)
