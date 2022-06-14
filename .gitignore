@@ -1,4 +1,4 @@
 *.pro.user
 .idea
 cmake-build-debug
-
+server/.idea
