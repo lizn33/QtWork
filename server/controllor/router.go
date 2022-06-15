@@ -9,6 +9,8 @@ func Run() {
 	router.GET("/join-group/:user-id/:group-id", joinGroup)
 	router.GET("/leave-group/:user-id/:group-id", leaveGroup)
 	router.GET("/get-chats/:user-id", getChats)
-	//router.POST("/send-massage/:from/:to")
+	router.POST("/send-massage", sendMessage)
+	router.GET("/get-history-messages/:user-id/:sender-id/*chat-type", getHistoryMessages)
+	router.GET("/get-un-push-messages/:user-id/:last-received-id")
 	router.Run()
 }

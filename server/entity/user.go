@@ -2,13 +2,20 @@ package entity
 
 type UserID int64
 
+type ChatType string
+
+const (
+	USER  ChatType = "User"
+	GROUP ChatType = "Group"
+)
+
 type User struct {
 	ID                    int64   `json:"id,omitempty"`
-	Name                  string  `gorm:"Column:name"json:"name,omitempty"`
-	Password              string  `gorm:"Column:password"`
-	LastReceivedMessageId int64   `gorm:"Column:last_received_message_id"`
-	Friends               []User  `gorm:"many2many:friends"json:"friends"`
-	Groups                []Group `gorm:"many2many:group_member"json:"groups"`
+	Name                  string  `gorm:"Column:name" json:"name,omitempty"`
+	Password              string  `gorm:"Column:password" json:"-"`
+	LastReceivedMessageId int64   `gorm:"Column:last_received_message_id" json:"-"`
+	Friends               []User  `gorm:"many2many:friends;" json:"friends,"`
+	Groups                []Group `gorm:"many2many:group_member" json:"groups,"`
 }
 
 func (this *User) AddFriend(friend User) {

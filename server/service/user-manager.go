@@ -9,7 +9,7 @@ func FindUser(id int64) *entity.User {
 	user := new(entity.User)
 	user.ID = id
 
-	result := GetDB().First(user)
+	result := GetDB().Preload("Friends").Preload("Groups").First(user)
 	if result.Error == nil {
 		return user
 	} else {

@@ -31,5 +31,7 @@ func getChats(c *gin.Context) {
 	userIDStr := c.Param("user-id")
 	userID, _ := strconv.ParseInt(userIDStr, 10, 64)
 	user := service.FindUser(userID)
+	user.ID = 0
+	user.Name = ""
 	c.JSON(200, user)
 }

@@ -35,7 +35,7 @@ CREATE TABLE group_member (
 );
 
 -- 消息存储
-CREATE TABLE message (
+CREATE TABLE messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT ,
     sender_id INTEGER, -- 发送者
     receiver_id INTEGER,   -- 接受者
