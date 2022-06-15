@@ -23,3 +23,7 @@ func SelectHistoryMessages(userID int64, senderID int64, chatType entity.ChatTyp
 		userID, senderID, chatType)
 	return messages
 }
+
+func ACKMessage(messageID int64) {
+	GetDB().Exec("UPDATE messages SET status = 'ACK'")
+}
