@@ -1,14 +1,13 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include "test/test.h"
+#include "chatwindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    testMysqlpp();
-    MainWindow w;
-    w.show();
+    ChatWindow chatWindow;
+    chatWindow.show();
 
 
     return a.exec();
